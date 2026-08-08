@@ -13,19 +13,19 @@ export function renderNavbar(root) {
 
   const visibleLinks = NAV_LINKS.filter(l => l.roles.includes(session.role));
   const roleBadge    = session.role === 'admin'
-    ? 'bg-yellow-400 text-yellow-900'
-    : 'bg-indigo-300 text-indigo-900';
+    ? 'bg-brand-light text-brand-darkest'
+    : 'bg-brand-base/20 text-brand-darkest';
   const roleLabel    = session.role === 'admin' ? '👑 Admin' : '👤 Empleado';
 
   root.innerHTML = `
-    <nav class="bg-indigo-700 text-white shadow">
+    <nav class="bg-brand-dark text-white shadow">
       <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         <div class="flex items-center gap-8">
           <span class="font-bold text-lg tracking-wide">📦 StoreInventory</span>
           <div class="flex gap-4">
             ${visibleLinks.map(l => `
               <a href="${l.href}"
-                 class="nav-link text-sm font-medium hover:text-indigo-200 transition-colors"
+                 class="nav-link text-sm font-medium hover:text-brand-light transition-colors"
                  data-href="${l.href}">
                 ${l.label}
               </a>`).join('')}
@@ -46,11 +46,15 @@ export function renderNavbar(root) {
   function setActive() {
     const hash = location.hash || '#/';
     root.querySelectorAll('.nav-link').forEach(a => {
-      a.classList.toggle('underline', a.dataset.href === hash);
-      a.classList.toggle('text-indigo-200', a.dataset.href === hash);
+      const isActive = a.dataset.href === hash;
+      a.classList.toggle('underline', isActive);
+      a.classList.toggle('text-brand-light', isActive);
     });
   }
 
   setActive();
-  window.addEventListener('hashchange', setActive);
+  if (!root.dataset.navListenerBound) {
+    root.dataset.navListenerBound = 'true';
+    window.addEventListener('hashchange', setActive);
+  }
 }

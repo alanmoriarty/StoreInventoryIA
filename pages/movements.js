@@ -30,8 +30,8 @@ function _render(root) {
 
   root.innerHTML = `
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-bold text-gray-800">Historial de Movimientos</h1>
-      <button id="btn-add" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">
+      <h1 class="text-2xl font-bold text-brand-darkest">Historial de Movimientos</h1>
+      <button id="btn-add" class="bg-brand-base text-white px-4 py-2 rounded-lg text-sm hover:bg-brand-dark">
         + Registrar movimiento
       </button>
     </div>
@@ -40,7 +40,7 @@ function _render(root) {
     <div class="bg-white rounded-xl shadow p-4 mb-4 grid grid-cols-2 md:grid-cols-4 gap-3">
       <!-- Tipo -->
       <div>
-        <label class="text-xs text-gray-500 font-medium block mb-1">Tipo</label>
+        <label class="text-xs text-brand-dark font-medium block mb-1">Tipo</label>
         <select id="f-type-filter" class="${cls}">
           ${['todos','entrada','salida'].map(t =>
             `<option value="${t}" ${state.type === t ? 'selected' : ''}>${t.charAt(0).toUpperCase()+t.slice(1)}</option>`
@@ -49,32 +49,32 @@ function _render(root) {
       </div>
       <!-- Producto -->
       <div>
-        <label class="text-xs text-gray-500 font-medium block mb-1">Producto</label>
+        <label class="text-xs text-brand-dark font-medium block mb-1">Producto</label>
         <select id="f-product-filter" class="${cls}">${productOptions}</select>
       </div>
       <!-- Desde -->
       <div>
-        <label class="text-xs text-gray-500 font-medium block mb-1">Desde</label>
+        <label class="text-xs text-brand-dark font-medium block mb-1">Desde</label>
         <input id="f-date-from" type="date" value="${state.dateFrom}" class="${cls}" />
       </div>
       <!-- Hasta -->
       <div>
-        <label class="text-xs text-gray-500 font-medium block mb-1">Hasta</label>
+        <label class="text-xs text-brand-dark font-medium block mb-1">Hasta</label>
         <input id="f-date-to" type="date" value="${state.dateTo}" class="${cls}" />
       </div>
     </div>
 
     <!-- Resumen rápido -->
     <div class="grid grid-cols-3 gap-3 mb-4">
-      ${summaryCard('Total filtrado', total, 'text-indigo-600 bg-indigo-50')}
-      ${summaryCard('Entradas (uds)', filtered.filter(m=>m.type==='entrada').reduce((s,m)=>s+m.qty,0), 'text-green-600 bg-green-50')}
-      ${summaryCard('Salidas (uds)',  filtered.filter(m=>m.type==='salida').reduce((s,m)=>s+m.qty,0),  'text-red-600 bg-red-50')}
+      ${summaryCard('Total filtrado', total, 'text-brand-base bg-brand-muted/20')}
+      ${summaryCard('Entradas (uds)', filtered.filter(m=>m.type==='entrada').reduce((s,m)=>s+m.qty,0), 'text-brand-base bg-brand-muted/20')}
+      ${summaryCard('Salidas (uds)',  filtered.filter(m=>m.type==='salida').reduce((s,m)=>s+m.qty,0),  'text-brand-dark bg-brand-muted/20')}
     </div>
 
     <!-- Tabla -->
     <div class="bg-white rounded-xl shadow overflow-x-auto">
       <table class="w-full text-sm">
-        <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
+        <thead class="bg-brand-muted/20 text-brand-dark uppercase text-xs">
           <tr>
             <th class="px-4 py-3 text-left">Fecha y hora</th>
             <th class="px-4 py-3 text-left">Producto</th>
@@ -89,23 +89,23 @@ function _render(root) {
         <tbody id="movements-body">
           ${paginated.length
             ? paginated.map(m => movementRow(m, products)).join('')
-            : `<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">Sin movimientos para los filtros aplicados.</td></tr>`}
+            : `<tr><td colspan="8" class="px-4 py-8 text-center text-brand-base">Sin movimientos para los filtros aplicados.</td></tr>`}
         </tbody>
       </table>
     </div>
 
     <!-- Paginación -->
     <div class="flex items-center justify-between mt-3">
-      <p class="text-xs text-gray-400">
+      <p class="text-xs text-brand-base">
         Mostrando ${paginated.length} de ${total} resultado(s) — Página ${state.page} de ${totalPages}
       </p>
       <div class="flex gap-2">
         <button id="btn-prev" ${state.page <= 1 ? 'disabled' : ''}
-          class="px-3 py-1.5 text-xs rounded-lg border ${state.page <= 1 ? 'text-gray-300 cursor-not-allowed' : 'hover:bg-gray-50'}">
+          class="px-3 py-1.5 text-xs rounded-lg border ${state.page <= 1 ? 'text-brand-base cursor-not-allowed' : 'hover:bg-brand-muted/20'}">
           ← Anterior
         </button>
         <button id="btn-next" ${state.page >= totalPages ? 'disabled' : ''}
-          class="px-3 py-1.5 text-xs rounded-lg border ${state.page >= totalPages ? 'text-gray-300 cursor-not-allowed' : 'hover:bg-gray-50'}">
+          class="px-3 py-1.5 text-xs rounded-lg border ${state.page >= totalPages ? 'text-brand-base cursor-not-allowed' : 'hover:bg-brand-muted/20'}">
           Siguiente →
         </button>
       </div>
@@ -137,7 +137,7 @@ function _render(root) {
 }
 
 // ── Helpers ────────────────────────────────────────────────────
-const cls = 'w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400';
+const cls = 'w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base';
 
 function summaryCard(label, value, colorCls) {
   return `
@@ -171,26 +171,26 @@ function formatDateTime(ts) {
 function movementRow(m, products) {
   const prod  = products.find(p => p.id === m.productId);
   const badge = m.type === 'entrada'
-    ? 'bg-green-100 text-green-700'
-    : 'bg-red-100 text-red-700';
+    ? 'bg-brand-muted text-brand-darkest'
+    : 'bg-brand-muted text-brand-darkest';
   const stockPost = m.stockAfter != null
-    ? `<span class="${m.stockAfter <= 0 ? 'text-red-500 font-semibold' : 'text-gray-700'}">${m.stockAfter}</span>`
-    : '<span class="text-gray-300">—</span>';
+    ? `<span class="${m.stockAfter <= 0 ? 'text-brand-dark font-semibold' : 'text-brand-darkest'}">${m.stockAfter}</span>`
+    : '<span class="text-brand-base">—</span>';
 
   return `
-    <tr class="border-t hover:bg-gray-50 transition-colors">
-      <td class="px-4 py-3 text-gray-500 whitespace-nowrap">${formatDateTime(m.timestamp)}</td>
+    <tr class="border-t hover:bg-brand-muted/20 transition-colors">
+      <td class="px-4 py-3 text-brand-dark whitespace-nowrap">${formatDateTime(m.timestamp)}</td>
       <td class="px-4 py-3 font-medium">
-        ${prod?.name ?? '<span class="text-gray-400 italic text-xs">Eliminado</span>'}
+        ${prod?.name ?? '<span class="text-brand-base italic text-xs">Eliminado</span>'}
       </td>
       <td class="px-4 py-3">
         <span class="px-2 py-0.5 rounded-full text-xs font-medium ${badge} capitalize">${m.type}</span>
       </td>
-      <td class="px-4 py-3 text-gray-600">${m.reason ?? '—'}</td>
+      <td class="px-4 py-3 text-brand-dark">${m.reason ?? '—'}</td>
       <td class="px-4 py-3 text-right font-semibold">${m.type === 'entrada' ? '+' : '-'}${m.qty}</td>
       <td class="px-4 py-3 text-right">${stockPost}</td>
-      <td class="px-4 py-3 text-gray-400 whitespace-nowrap">${m.user ?? '—'}</td>
-      <td class="px-4 py-3 text-gray-400 text-xs">${m.note || '—'}</td>
+      <td class="px-4 py-3 text-brand-base whitespace-nowrap">${m.user ?? '—'}</td>
+      <td class="px-4 py-3 text-brand-base text-xs">${m.note || '—'}</td>
     </tr>`;
 }
 
@@ -210,37 +210,37 @@ function openMovementModal(products, onSaved) {
     <h2 class="text-lg font-semibold mb-4">Registrar Movimiento</h2>
     <div class="space-y-3">
       <div>
-        <label class="text-xs text-gray-500 font-medium">Producto *</label>
+        <label class="text-xs text-brand-dark font-medium">Producto *</label>
         <select id="f-product" class="mt-1 ${cls}">${productOptions}</select>
-        <p id="stock-display" class="text-xs text-indigo-500 mt-1 font-medium"></p>
+        <p id="stock-display" class="text-xs text-brand-base mt-1 font-medium"></p>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="text-xs text-gray-500 font-medium">Tipo *</label>
+          <label class="text-xs text-brand-dark font-medium">Tipo *</label>
           <select id="f-type" class="mt-1 ${cls}">
             <option value="entrada">Entrada</option>
             <option value="salida">Salida</option>
           </select>
         </div>
         <div>
-          <label class="text-xs text-gray-500 font-medium">Cantidad *</label>
+          <label class="text-xs text-brand-dark font-medium">Cantidad *</label>
           <input id="f-qty" type="number" min="1" value="1" class="mt-1 ${cls}" />
         </div>
       </div>
       <div>
-        <label class="text-xs text-gray-500 font-medium">Motivo *</label>
+        <label class="text-xs text-brand-dark font-medium">Motivo *</label>
         <select id="f-reason" class="mt-1 ${cls}">
           ${REASONS.entrada.map(r => `<option>${r}</option>`).join('')}
         </select>
       </div>
       <div>
-        <label class="text-xs text-gray-500 font-medium">Nota adicional</label>
+        <label class="text-xs text-brand-dark font-medium">Nota adicional</label>
         <input id="f-note" placeholder="Opcional..." class="mt-1 ${cls}" />
       </div>
     </div>
     <div class="flex justify-end gap-3 mt-5">
-      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-gray-50">Cancelar</button>
-      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Guardar</button>
+      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-brand-muted/20">Cancelar</button>
+      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-brand-base text-white hover:bg-brand-dark">Guardar</button>
     </div>`, () => saveMovement(onSaved));
 
   setTimeout(() => {

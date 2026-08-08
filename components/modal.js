@@ -2,21 +2,29 @@ const overlay = () => document.getElementById('modal-overlay');
 const content = () => document.getElementById('modal-content');
 
 export function openModal(html, onConfirm) {
-  content().innerHTML = html;
-  overlay().classList.remove('hidden');
+  const overlayEl = overlay();
+  const contentEl = content();
+  if (!overlayEl || !contentEl) return;
 
-  const confirmBtn = content().querySelector('[data-confirm]');
-  const cancelBtn  = content().querySelector('[data-cancel]');
+  contentEl.innerHTML = html;
+  overlayEl.classList.remove('hidden');
+
+  const confirmBtn = contentEl.querySelector('[data-confirm]');
+  const cancelBtn  = contentEl.querySelector('[data-cancel]');
 
   confirmBtn?.addEventListener('click', () => { onConfirm?.(); closeModal(); });
   cancelBtn?.addEventListener('click', closeModal);
 }
 
 export function closeModal() {
-  overlay().classList.add('hidden');
-  content().innerHTML = '';
+  const overlayEl = overlay();
+  const contentEl = content();
+  if (!overlayEl || !contentEl) return;
+
+  overlayEl.classList.add('hidden');
+  contentEl.innerHTML = '';
 }
 
 // Cerrar al hacer click fuera
-document.getElementById('modal-overlay')
-  .addEventListener('click', e => { if (e.target === overlay()) closeModal(); });
+const modalOverlay = document.getElementById('modal-overlay');
+modalOverlay?.addEventListener('click', e => { if (e.target === overlay()) closeModal(); });

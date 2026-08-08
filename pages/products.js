@@ -26,13 +26,13 @@ function _render(root, isAdmin, filterName, filterCat) {
 
   root.innerHTML = `
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-bold text-gray-800">Productos</h1>
+      <h1 class="text-2xl font-bold text-brand-darkest">Productos</h1>
       <div class="flex gap-2">
         ${isAdmin ? `
-          <button id="btn-categories" class="border border-indigo-300 text-indigo-600 px-3 py-2 rounded-lg text-sm hover:bg-indigo-50">
+          <button id="btn-categories" class="border border-brand-base/30 text-brand-base px-3 py-2 rounded-lg text-sm hover:bg-brand-base/10">
             🏷️ Categorías
           </button>
-          <button id="btn-add" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">
+          <button id="btn-add" class="bg-brand-base text-white px-4 py-2 rounded-lg text-sm hover:bg-brand-dark">
             + Nuevo producto
           </button>` : ''}
       </div>
@@ -41,9 +41,9 @@ function _render(root, isAdmin, filterName, filterCat) {
     <!-- Filtros -->
     <div class="flex gap-3 mb-4">
       <input id="filter-name" value="${filterName}" placeholder="Buscar por nombre..."
-        class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
       <select id="filter-cat"
-        class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+        class="border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base">
         ${catOptions}
       </select>
     </div>
@@ -51,7 +51,7 @@ function _render(root, isAdmin, filterName, filterCat) {
     <!-- Tabla -->
     <div class="bg-white rounded-xl shadow overflow-x-auto">
       <table class="w-full text-sm">
-        <thead class="bg-gray-50 text-gray-500 uppercase text-xs">
+        <thead class="bg-brand-muted/20 text-brand-dark uppercase text-xs">
           <tr>
             <th class="px-4 py-3 text-left">Nombre</th>
             <th class="px-4 py-3 text-left">Categoría</th>
@@ -67,7 +67,7 @@ function _render(root, isAdmin, filterName, filterCat) {
         </tbody>
       </table>
     </div>
-    <p class="text-xs text-gray-400 mt-2">${products.length} producto(s) encontrado(s)</p>`;
+    <p class="text-xs text-brand-base mt-2">${products.length} producto(s) encontrado(s)</p>`;
 
   // Filtros en tiempo real
   root.querySelector('#filter-name').addEventListener('input', e =>
@@ -104,29 +104,29 @@ function productRow(p, isAdmin) {
   const isLow      = p.stock <= p.minStock;
   const isOut      = p.stock === 0;
   const statusBadge = isOut
-    ? '<span class="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700">Sin stock</span>'
+    ? '<span class="px-2 py-0.5 rounded-full text-xs bg-brand-muted text-brand-darkest">Sin stock</span>'
     : isLow
-      ? '<span class="px-2 py-0.5 rounded-full text-xs bg-yellow-100 text-yellow-700">Stock bajo</span>'
-      : '<span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700">OK</span>';
+      ? '<span class="px-2 py-0.5 rounded-full text-xs bg-brand-muted text-brand-darkest">Stock bajo</span>'
+      : '<span class="px-2 py-0.5 rounded-full text-xs bg-brand-muted text-brand-darkest">OK</span>';
 
   return `
-    <tr class="border-t hover:bg-gray-50" data-id="${p.id}">
+    <tr class="border-t hover:bg-brand-muted/20" data-id="${p.id}">
       <td class="px-4 py-3 font-medium">${p.name}</td>
-      <td class="px-4 py-3 text-gray-500">${p.category}</td>
-      <td class="px-4 py-3 text-right font-semibold ${isLow ? 'text-red-500' : 'text-gray-700'}">${p.stock}</td>
-      <td class="px-4 py-3 text-right text-gray-400">${p.minStock}</td>
+      <td class="px-4 py-3 text-brand-dark">${p.category}</td>
+      <td class="px-4 py-3 text-right font-semibold ${isLow ? 'text-brand-dark' : 'text-brand-darkest'}">${p.stock}</td>
+      <td class="px-4 py-3 text-right text-brand-base">${p.minStock}</td>
       <td class="px-4 py-3 text-right">$${Number(p.price).toFixed(2)}</td>
       <td class="px-4 py-3 text-center">${statusBadge}</td>
       ${isAdmin ? `
       <td class="px-4 py-3 text-right space-x-2">
-        <button data-action="edit"   class="text-indigo-500 hover:underline text-xs">Editar</button>
-        <button data-action="delete" class="text-red-400 hover:underline text-xs">Eliminar</button>
+        <button data-action="edit"   class="text-brand-base hover:underline text-xs">Editar</button>
+        <button data-action="delete" class="text-brand-dark hover:underline text-xs">Eliminar</button>
       </td>` : ''}
     </tr>`;
 }
 
 function emptyRow(cols) {
-  return `<tr><td colspan="${cols}" class="px-4 py-8 text-center text-gray-400">Sin productos encontrados.</td></tr>`;
+  return `<tr><td colspan="${cols}" class="px-4 py-8 text-center text-brand-base">Sin productos encontrados.</td></tr>`;
 }
 
 // ── Modal crear / editar ───────────────────────────────────────
@@ -141,46 +141,46 @@ function openProductModal(id, onSaved) {
     <h2 class="text-lg font-semibold mb-4">${p ? 'Editar' : 'Nuevo'} Producto</h2>
     <div class="space-y-3">
       <div>
-        <label class="text-xs text-gray-500 font-medium">Nombre *</label>
+        <label class="text-xs text-brand-dark font-medium">Nombre *</label>
         <input id="f-name" value="${p?.name ?? ''}" placeholder="Nombre del producto"
-          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
       </div>
       <div>
-        <label class="text-xs text-gray-500 font-medium">Categoría *</label>
+        <label class="text-xs text-brand-dark font-medium">Categoría *</label>
         <select id="f-category"
-          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base">
           ${catOptions}
         </select>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="text-xs text-gray-500 font-medium">
-            Stock inicial ${p ? '<span class="text-yellow-600">(usa Movimientos para ajustar)</span>' : '*'}
+          <label class="text-xs text-brand-dark font-medium">
+            Stock inicial ${p ? '<span class="text-brand-light">(usa Movimientos para ajustar)</span>' : '*'}
           </label>
           <input id="f-stock" type="number" min="0" value="${p?.stock ?? 0}"
-            ${p ? 'readonly class="mt-1 w-full border rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-400 cursor-not-allowed"'
-                : 'class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"'} />
+            ${p ? 'readonly class="mt-1 w-full border rounded-lg px-3 py-2 text-sm bg-brand-muted/20 text-brand-base cursor-not-allowed"'
+                : 'class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base"'} />
         </div>
         <div>
-          <label class="text-xs text-gray-500 font-medium">Stock mínimo *</label>
+          <label class="text-xs text-brand-dark font-medium">Stock mínimo *</label>
           <input id="f-minStock" type="number" min="0" value="${p?.minStock ?? 0}"
-            class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+            class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
         </div>
       </div>
       <div>
-        <label class="text-xs text-gray-500 font-medium">Precio unitario *</label>
+        <label class="text-xs text-brand-dark font-medium">Precio unitario *</label>
         <input id="f-price" type="number" min="0" step="0.01" value="${p?.price ?? 0}"
-          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
       </div>
       <div>
-        <label class="text-xs text-gray-500 font-medium">Descripción</label>
+        <label class="text-xs text-brand-dark font-medium">Descripción</label>
         <textarea id="f-desc" rows="2" placeholder="Descripción opcional..."
-          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none">${p?.description ?? ''}</textarea>
+          class="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base resize-none">${p?.description ?? ''}</textarea>
       </div>
     </div>
     <div class="flex justify-end gap-3 mt-5">
-      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-gray-50">Cancelar</button>
-      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Guardar</button>
+      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-brand-muted/20">Cancelar</button>
+      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-brand-base text-white hover:bg-brand-dark">Guardar</button>
     </div>`, () => saveProduct(id, onSaved));
 }
 
@@ -226,18 +226,18 @@ function confirmDelete(id, onDeleted) {
   const p            = db.getOne(DB_KEYS.products, id);
   const movCount     = db.get(DB_KEYS.movements).filter(m => m.productId === id).length;
   const warningHtml  = movCount > 0
-    ? `<p class="text-xs text-yellow-700 bg-yellow-50 border border-yellow-200 rounded-lg px-3 py-2 mt-2">
+    ? `<p class="text-xs text-brand-darkest bg-brand-muted/20 border border-brand-base/30 rounded-lg px-3 py-2 mt-2">
         ⚠️ Este producto tiene <strong>${movCount} movimiento(s)</strong> registrado(s). El historial quedará sin referencia.
        </p>`
     : '';
 
   openModal(`
-    <h2 class="text-lg font-semibold mb-3 text-red-600">Eliminar producto</h2>
-    <p class="text-gray-700 text-sm">¿Estás seguro de eliminar <strong>${p?.name}</strong>?</p>
+    <h2 class="text-lg font-semibold mb-3 text-brand-dark">Eliminar producto</h2>
+    <p class="text-brand-darkest text-sm">¿Estás seguro de eliminar <strong>${p?.name}</strong>?</p>
     ${warningHtml}
     <div class="flex justify-end gap-3 mt-5">
-      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-gray-50">Cancelar</button>
-      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700">Sí, eliminar</button>
+      <button data-cancel  class="px-4 py-2 text-sm rounded-lg border hover:bg-brand-muted/20">Cancelar</button>
+      <button data-confirm class="px-4 py-2 text-sm rounded-lg bg-brand-dark text-white hover:bg-brand-darkest">Sí, eliminar</button>
     </div>`, () => {
     db.remove(DB_KEYS.products, id);
     toast('Producto eliminado', 'error');

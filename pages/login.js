@@ -10,29 +10,29 @@ export function renderLogin(root) {
       <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
         <div class="text-center mb-6">
           <span class="text-4xl">📦</span>
-          <h1 class="text-xl font-bold text-gray-800 mt-2">StoreInventory</h1>
-          <p class="text-sm text-gray-400">Inicia sesión para continuar</p>
+          <h1 class="text-xl font-bold text-brand-darkest mt-2">StoreInventory</h1>
+          <p class="text-sm text-brand-base">Inicia sesión para continuar</p>
         </div>
 
         <form id="login-form" class="space-y-4">
           <div>
-            <label class="text-xs font-medium text-gray-600 block mb-1">Correo electrónico</label>
+            <label class="text-xs font-medium text-brand-dark block mb-1">Correo electrónico</label>
             <input id="f-email" type="email" placeholder="usuario@store.com" required
-              class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+              class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
           </div>
           <div>
-            <label class="text-xs font-medium text-gray-600 block mb-1">Contraseña</label>
+            <label class="text-xs font-medium text-brand-dark block mb-1">Contraseña</label>
             <input id="f-password" type="password" placeholder="••••••••" required
-              class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+              class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
           </div>
           <button type="submit"
-            class="w-full bg-indigo-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors">
+            class="w-full bg-brand-base text-white py-2 rounded-lg text-sm font-medium hover:bg-brand-dark transition-colors">
             Ingresar
           </button>
         </form>
 
-        <div class="mt-6 p-3 bg-gray-50 rounded-lg text-xs text-gray-500 space-y-1">
-          <p class="font-medium text-gray-600">Cuentas de prueba:</p>
+        <div class="mt-6 p-3 bg-brand-muted/20 rounded-lg text-xs text-brand-dark space-y-1">
+          <p class="font-medium text-brand-dark">Cuentas de prueba:</p>
           <p>👑 admin@store.com / admin123</p>
           <p>👤 empleado@store.com / empleado123</p>
         </div>

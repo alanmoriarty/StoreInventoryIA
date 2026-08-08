@@ -22,27 +22,27 @@ export function openCategoriesModal(onClose) {
       <ul id="cat-list" class="space-y-1 mb-4 max-h-48 overflow-y-auto">
         ${cats.length
           ? cats.map(c => `
-            <li class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 border text-sm" data-cat-id="${c.id}">
+            <li class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-brand-muted/20 border text-sm" data-cat-id="${c.id}">
               <span class="cat-name">${c.name}</span>
               <div class="flex gap-2">
-                <button data-cat-action="edit"   class="text-indigo-500 hover:underline text-xs">Editar</button>
-                <button data-cat-action="delete" class="text-red-400 hover:underline text-xs">Eliminar</button>
+                <button data-cat-action="edit"   class="text-brand-base hover:underline text-xs">Editar</button>
+                <button data-cat-action="delete" class="text-brand-dark hover:underline text-xs">Eliminar</button>
               </div>
             </li>`).join('')
-          : `<li class="text-gray-400 text-sm text-center py-3">Sin categorías.</li>`}
+          : `<li class="text-brand-base text-sm text-center py-3">Sin categorías.</li>`}
       </ul>
 
       <div class="flex gap-2">
         <input id="f-cat-name" placeholder="Nueva categoría..."
-          class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+          class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-base" />
         <button id="btn-cat-add"
-          class="bg-indigo-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-indigo-700">
+          class="bg-brand-base text-white px-3 py-2 rounded-lg text-sm hover:bg-brand-dark">
           Agregar
         </button>
       </div>
 
       <div class="flex justify-end mt-4">
-        <button data-cancel class="px-4 py-2 text-sm rounded-lg border hover:bg-gray-50">Cerrar</button>
+        <button data-cancel class="px-4 py-2 text-sm rounded-lg border hover:bg-brand-muted/20">Cerrar</button>
       </div>`, null);
 
     // Sobrescribir el cierre del modal para llamar onClose
@@ -90,7 +90,7 @@ export function openCategoriesModal(onClose) {
         const nameSpan = li.querySelector('.cat-name');
         nameSpan.innerHTML = `
           <input id="edit-cat-input" value="${cat.name}"
-            class="border rounded px-2 py-0.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400 w-36" />`;
+            class="border rounded px-2 py-0.5 text-sm focus:outline-none focus:ring-1 focus:ring-brand-base w-36" />`;
         const input = document.getElementById('edit-cat-input');
         input.focus();
         input.addEventListener('keydown', e => {

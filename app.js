@@ -50,6 +50,10 @@ function navigate() {
   app.innerHTML = '';
 
   if (hash === '#/login') {
+    if (getSession()) {
+      location.hash = '#/';
+      return;
+    }
     navbar.classList.add('hidden');
     renderLogin(app);
     return;
