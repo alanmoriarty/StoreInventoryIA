@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StoreInventory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <div id="navbar-root"></div>
+
+  <main id="app" class="max-w-6xl mx-auto p-6"></main>
+
+  <!-- Toast global -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden"></div>
+
+  <!-- Modal global -->
+  <div id="modal-overlay" class="fixed inset-0 bg-black/50 z-40 hidden flex items-center justify-center">
+    <div id="modal-content" class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6"></div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
